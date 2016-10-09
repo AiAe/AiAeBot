@@ -32,3 +32,6 @@ $ pip install -r requirements.txt
 ### Extra
 If interested in MelanzanaBot
 https://git.zxq.co/Nyo/MelanzanaBot
+
+### ToDo
+- PHP check if ship exists in database.
