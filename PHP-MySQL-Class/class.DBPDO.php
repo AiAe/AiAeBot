@@ -19,7 +19,7 @@ class DBPDO {
 	function connect(){
 		if(!$this->pdo){
 
-			$dsn      = 'mysql:dbname=' . DATABASE_NAME . ';host=' . DATABASE_HOST;
+			$dsn      = 'mysql:dbname=' . DATABASE_NAME . ';host=' . DATABASE_HOST.';charset=utf8';
 			$user     = DATABASE_USER;
 			$password = DATABASE_PASS;
 
@@ -40,7 +40,7 @@ class DBPDO {
 
 	function table_exists($table_name){
 		$stmt = $this->prep_query('SHOW TABLES LIKE ?');
-		$stmt->execute(array($this->add_table_prefix($table_name)));
+		$stmt->execute(array($table_name));
 		return $stmt->rowCount() > 0;
 	}
 

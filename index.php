@@ -3,7 +3,7 @@ define('DATABASE_NAME', '');
 define('DATABASE_USER', '');
 define('DATABASE_PASS', '');
 define('DATABASE_HOST', '');
-include_once('./libs/class.DBPDO.php');
+include_once('./PHP-MySQL-Class/class.DBPDO.php');
 $DB = new DBPDO();
 $ship1 = $_GET["u1"];
 $ship2 = $_GET["u2"];
