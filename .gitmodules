@@ -1,0 +1,3 @@
+[submodule "PHP-MySQL-Class"]
+	path = PHP-MySQL-Class
+	url = https://github.com/dp-p/PHP-MySQL-Class
