@@ -28,3 +28,7 @@ $ pip install -r requirements.txt
 ```
 0 * * * * python3 ship.py
 ```
+
+### Extra
+If interested in MelanzanaBot
+https://git.zxq.co/Nyo/MelanzanaBot
