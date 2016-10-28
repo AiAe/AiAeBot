@@ -3,6 +3,7 @@
 ### Requirements
 - Python 3.5
 - discord.py
+- cleverbot
 
 ### Discord
 - Create two bots in https://discordapp.com/developers/applications/me
@@ -12,19 +13,10 @@ https://discordapp.com/oauth2/authorize?client_id=BOT_CLIENT_ID&scope=bot&permis
 ```
 change BOT_CLIENT_ID with the bot ID.
 
-### Server setup
-- Create new database
-- Upload SQL
-- Edit in index.php from line 2 to 5
-
-### Installation
+### Run
 ```
-$ pip install -r requirements.txt
-```
-
-- Edit config file
-
 python3 ships.py
+```
 
 ### Extra
 If interested in MelanzanaBot
