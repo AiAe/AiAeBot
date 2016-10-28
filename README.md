@@ -24,14 +24,9 @@ $ pip install -r requirements.txt
 
 - Edit config file
 
-- Set up a cronjob that will send random ship every 1 hour.
-```
-0 * * * * python3 ship.py
-```
+python3 ships.py
 
 ### Extra
 If interested in MelanzanaBot
 https://git.zxq.co/Nyo/MelanzanaBot
-
-### ToDo
-- PHP check if ship exists in database.
+I don't use it anymore!
