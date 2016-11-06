@@ -206,7 +206,7 @@ async def addrole(user: discord.Member, r : str):
 
 @bot.command(pass_context=True, no_pm=True)
 @admin_or_permissions()
-async def prune(ctx, name : str, amount : int=10):
+async def purge(ctx, name : str, amount : int=10):
     # Not my code. I will put source if I don't forget
     try:
         found = discord.utils.find(lambda m: name.lower() in m.display_name.lower(), ctx.message.server.members)
