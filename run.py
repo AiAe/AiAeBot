@@ -127,10 +127,19 @@ async def getavatar(ctx, member : discord.Member = None):
 
 @bot.command(pass_context=True, no_pm=True)
 @commands.cooldown(1, 60, commands.BucketType.user)
-async def mf(fname : str):
-    for i in range(0, len(conf['mf'])):
-        if fname == str(conf['mf'][i]):
-            await bot.send_file(ctx.message.channel, './fingers/{}.jpg'.format(conf['mf'][i]))
+async def mf(ctx, fname : str):
+    i = 0
+    count = len(conf['mf'])
+    while True:
+        if i is count:
+            await bot.say("Middle Finger not found.")
+            break
+        else:
+            if fname in conf['mf'][i].split(".")[0]:
+                await bot.send_file(ctx.message.channel, './fingers/{}'.format(conf['mf'][i]))
+                break
+            else:
+                i += 1
             
 @bot.command(name="8ball")
 @commands.cooldown(1, 10, commands.BucketType.user)
