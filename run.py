@@ -69,6 +69,8 @@ async def shiping():
         if atmhour in conf['ship_time']:
             cursor.execute("SELECT * FROM ships ORDER BY RAND() LIMIT 1")
             row = cursor.fetchone()
+            cursor.execute("UPDATE ships SET counter='%d' WHERE id='%d'" % ((row[3]+1), row[0]))
+            db.commit()
             await bot.send_message(discord.Object(id="203956255197364224"), "{} x {}".format(row[1], row[2]))
         await asyncio.sleep(int(conf['ship_checker_time']))
 
