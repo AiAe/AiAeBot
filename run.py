@@ -65,13 +65,11 @@ def roleCheck(self, server, name):
 async def shiping():
     await bot.wait_until_ready()
     while not bot.is_closed:
-        atmhour = str(strftime("%I:%M", gmtime()))
+        atmhour = strftime("%I:%M", gmtime())
         if atmhour in conf['ship_time']:
-            print("sending..")
             cursor.execute("SELECT * FROM ships ORDER BY RAND() LIMIT 1")
             row = cursor.fetchone()
-            await send_message(discord.Object(id=""), "{} x {}".format(row[1], row[2]))
-        print("looking..")
+            await bot.send_message(discord.Object(id="203956255197364224"), "{} x {}".format(row[1], row[2]))
         await asyncio.sleep(int(conf['ship_checker_time']))
 
 @bot.event
