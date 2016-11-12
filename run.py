@@ -15,9 +15,8 @@ from PIL import Image
 from time import gmtime, strftime
 
 try:
-    with open("./config.json", "r") as f:
-        conf = f.read()
-    conf = json.loads(conf)
+    with open("./config.json", "r") as f: 
+        conf = json.load(f)
 except:
     print("config???")
     raise
@@ -69,7 +68,7 @@ async def shiping():
         if atmhour in conf['ship_time']:
             cursor.execute("SELECT * FROM ships ORDER BY RAND() LIMIT 1")
             row = cursor.fetchone()
-            cursor.execute("UPDATE ships SET counter='%d' WHERE id='%d'" % ((row[3]+1), row[0]))
+            cursor.execute("UPDATE ships SET counter='%s' WHERE id='%s'", [(row[3]+1), row[0]])
             db.commit()
             await bot.send_message(discord.Object(id="203956255197364224"), "{} x {}".format(row[1], row[2]))
         await asyncio.sleep(int(conf['ship_checker_time']))
@@ -91,24 +90,24 @@ async def on_member_remove(member):
 @bot.command()
 @admin_or_permissions()
 async def addship(username1 : str, username2 : str):
-    cursor.execute("SELECT * FROM ships WHERE username_1='%s' and username_2='%s'" % (username1, username2))
+    cursor.execute("SELECT * FROM ships WHERE username_1='%s' and username_2='%s'", [username1, username2])
     counter = cursor.rowcount
     if counter == 1:
         await bot.say("Ship exists in database!", delete_after=5)
     else: 
-        cursor.execute("SELECT * FROM ships WHERE username_1='%s' and username_2='%s'" % (username2, username1))
+        cursor.execute("SELECT * FROM ships WHERE username_1='%s' and username_2='%s'", [username2, username1])
         counter2 = cursor.rowcount
         if counter2 == 1:
             await bot.say("Ship exists in database!", delete_after=5)
         else:
-            cursor.execute("INSERT INTO ships (username_1, username_2) VALUES('%s', '%s')" % (username1, username2))
+            cursor.execute("INSERT INTO ships (username_1, username_2) VALUES('%s', '%s')", [username1, username2])
             db.commit()
             await bot.say("Added.", delete_after=5)
 
 @bot.command()
 @admin_or_permissions()
 async def rship(ship1 : str, ship2 : str):
-    cursor.execute("DELETE FROM ships WHERE username_1='%s' and username_2='%s'" % (username1, username2))
+    cursor.execute("DELETE FROM ships WHERE username_1='%s' and username_2='%s'", [username1, username2])
     db.commit()
     await bot.say("Ship is removed.", delete_after=5)
 
@@ -118,7 +117,7 @@ async def ships():
     results = cursor.fetchall()
     usernames = []
     for row in results:
-        usernames.append("{} x {} \n".format(re.sub(r"[^A-Za-z]+", '', row[1]), re.sub(r"[^A-Za-z]+", '', row[2])))
+        usernames.append("{} x {} Counter: {}\n".format(re.sub(r"[^A-Za-z]+", '', row[1]), re.sub(r"[^A-Za-z]+", '', row[2]), row[3]))
     s = ''.join(map(str, usernames))
     await bot.whisper("```{}```".format(s))
 
@@ -148,9 +147,9 @@ async def mf(ctx, fname : str):
 async def eight_ball(*text):
     await bot.say(random.choice(conf['answers']))
 
-@bot.command()
+@bot.command(pass_context=True)
 @commands.cooldown(1, 10, commands.BucketType.user)
-async def kys(*text):
+async def kys(ctx, message, *text):
     cleverbot_client = cleverbot.Cleverbot()
     answer = cleverbot_client.ask(str(text))
     await bot.say(answer)
@@ -244,7 +243,6 @@ async def status(newgame : str):
     await bot.say(":ok_hand:", delete_after=5)
 
 @bot.command()
-@is_owner()
 async def help():
     await bot.whisper("```{}```".format(conf['help']))
 
